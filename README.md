@@ -60,6 +60,7 @@ Your task is to implement a cat expense web front end with the following functio
 - **Cat Facts API** - External data integration
 - **Framer motion** - Animations
 - **Netlify** - Deployment
+- **CI/CD testing** - GitHub Actions
 
 ## Deployment
 
