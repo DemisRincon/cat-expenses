@@ -54,10 +54,16 @@ Your task is to implement a cat expense web front end with the following functio
 
 - **React** - UI library
 - **TypeScript** - Type safety
-- **Redux Toolkit** - State management
+- **Redux and Redux toolkit** - State management
 - **Tailwind CSS** - Styling
 - **Jest** - Testing
 - **Cat Facts API** - External data integration
+- **Framer motion** - Animations
+- **Netlify** - Deployment
+
+## Deployment
+
+https://cat-expenses-web.netlify.app/
 
 ## Installation
 
