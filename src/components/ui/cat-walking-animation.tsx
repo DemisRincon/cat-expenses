@@ -19,7 +19,7 @@ const CatWalkingAnimation: React.FC<CatWalkingAnimationProps> = ({
         x: flip ? [window.innerWidth, startX] : [startX, window.innerWidth],
       }}
       transition={{ repeat: Infinity, duration, ease: "linear" }}
-      className="h-[100px]"
+      className="h-[100px] "
     >
       <img
         src={cat}

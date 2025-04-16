@@ -15,8 +15,13 @@ interface ExpenseState {
   isDialogOpen: boolean;
 }
 
+const loadExpensesFromLocalStorage = (): Expense[] => {
+  const storedExpenses = localStorage.getItem("expenses");
+  return storedExpenses ? JSON.parse(storedExpenses) : [];
+};
+
 const initialState: ExpenseState = {
-  expenses: [],
+  expenses: loadExpensesFromLocalStorage(),
   isDialogOpen: false,
 };
 
@@ -33,6 +38,7 @@ export const expenseSlice = createSlice({
         selected: false,
       };
       state.expenses.push(newExpense);
+      localStorage.setItem("expenses", JSON.stringify(state.expenses));
     },
     toggleExpenseSelection: (state, action: PayloadAction<string>) => {
       const expense = state.expenses.find((exp) => exp.id === action.payload);
@@ -42,6 +48,7 @@ export const expenseSlice = createSlice({
     },
     deleteSelectedExpenses: (state) => {
       state.expenses = state.expenses.filter((expense) => !expense.selected);
+      localStorage.setItem("expenses", JSON.stringify(state.expenses));
     },
     openDialog: (state) => {
       state.isDialogOpen = true;
