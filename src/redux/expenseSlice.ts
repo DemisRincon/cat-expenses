@@ -12,6 +12,7 @@ export interface Expense {
 
 interface ExpenseState {
   expenses: Expense[];
+  isSomeSelected: boolean;
   isDialogOpen: boolean;
 }
 
@@ -23,6 +24,7 @@ const loadExpensesFromLocalStorage = (): Expense[] => {
 const initialState: ExpenseState = {
   expenses: loadExpensesFromLocalStorage(),
   isDialogOpen: false,
+  isSomeSelected: false,
 };
 
 export type AddExpensePayload = Omit<Expense, "id" | "selected">;
@@ -45,9 +47,12 @@ export const expenseSlice = createSlice({
       if (expense) {
         expense.selected = !expense.selected;
       }
+      state.isSomeSelected = state.expenses.some((exp) => exp.selected);
+      localStorage.setItem("expenses", JSON.stringify(state.expenses));
     },
     deleteSelectedExpenses: (state) => {
       state.expenses = state.expenses.filter((expense) => !expense.selected);
+      state.isSomeSelected = state.expenses.some((exp) => exp.selected);
       localStorage.setItem("expenses", JSON.stringify(state.expenses));
     },
     openDialog: (state) => {

@@ -10,7 +10,9 @@ import AddExpenseDialog from "./add-expens-dialog";
 
 const ExpenseTracker: React.FC = () => {
   const dispatch = useAppDispatch();
-  const expenses = useAppSelector((state) => state.expenses.expenses);
+  const { expenses, isSomeSelected } = useAppSelector(
+    (state) => state.expenses
+  );
 
   const handleToggleSelection = (id: string) => {
     dispatch(toggleExpenseSelection(id));
@@ -28,7 +30,11 @@ const ExpenseTracker: React.FC = () => {
     <div className="max-w-3xl mx-auto p-6">
       <div className="flex gap-4 mb-6 justify-between md:justify-end">
         <ActionButton label="Add Expense" onClick={handleAddExpense} />
-        <ActionButton label="Delete Expense" onClick={handleDeleteExpense} />
+        <ActionButton
+          label="Delete Expense"
+          onClick={handleDeleteExpense}
+          disabled={!isSomeSelected}
+        />
       </div>
 
       <ExpenseTable
