@@ -1,7 +1,8 @@
+import React from "react";
 import { motion } from "framer-motion";
-import cat from "../assets/cat.gif";
+import cat from "../../assets/cat.gif";
 
-const CatWalkingAnimation = () => {
+const CatWalkingAnimation: React.FC = () => {
   return (
     <motion.div
       animate={{ x: [-100, window.innerWidth] }}
