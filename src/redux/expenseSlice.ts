@@ -24,7 +24,9 @@ const loadExpensesFromLocalStorage = (): Expense[] => {
 const initialState: ExpenseState = {
   expenses: loadExpensesFromLocalStorage(),
   isDialogOpen: false,
-  isSomeSelected: false,
+  isSomeSelected: loadExpensesFromLocalStorage().some(
+    (expense) => expense.selected
+  ),
 };
 
 export type AddExpensePayload = Omit<Expense, "id" | "selected">;

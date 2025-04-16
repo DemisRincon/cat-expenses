@@ -1,6 +1,6 @@
 import React, { useState, type FormEvent, type ChangeEvent } from "react";
 import InputLabel from "./input-label";
-
+import { motion } from "framer-motion";
 export interface ExpenseFormData {
   item: string;
   category: string;
@@ -80,7 +80,14 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1">
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ x: -200 }}
+      animate={{ x: 0 }}
+      exit={{ x: -200 }}
+      transition={{ duration: 0.3, ease: "linear" }}
+      className="flex-1"
+    >
       <InputLabel htmlFor="item" label="Item" error={formErrors.item}>
         <input
           type="text"
@@ -139,7 +146,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           Submit
         </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 
