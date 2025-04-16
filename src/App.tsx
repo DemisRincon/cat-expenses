@@ -4,7 +4,7 @@ import ExpenseTracker from "./components/expense-tracker";
 const App = () => {
   return (
     <div className="h-screen w-screen flex flex-col justify-start items-center bg-white ">
-      <header className="h-16 w-full flex justify-center items-center md:h-1/12">
+      <header className="h-16 w-full flex justify-center items-center md:h-1/12 z-1">
         <h1 className="text-3xl font-bold md:text-5xl">Cat Expenses Web</h1>
       </header>
       <main className="flex-grow w-full overflow-y-scroll md:h-11/12 z-1">
