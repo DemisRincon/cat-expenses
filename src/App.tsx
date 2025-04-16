@@ -7,12 +7,20 @@ const App = () => {
       <header className="h-16 w-full flex justify-center items-center md:h-1/12">
         <h1 className="text-3xl font-bold md:text-5xl">Cat Expenses Web</h1>
       </header>
-      <main className="flex-grow w-full overflow-y-scroll">
+      <main className="flex-grow w-full overflow-y-scroll md:h-11/12">
         <ExpenseTracker />
       </main>
-      <footer className="h-20 w-full overflow-hidden md:h-1/12">
-        <CatWalkingAnimation />
-      </footer>
+      <div className="absolute top-0 left-0 h-screen w-full overflow-x-hidden -z-10">
+        <CatWalkingAnimation flip duration={20} startX={-100} />
+        <CatWalkingAnimation duration={12} />
+        <CatWalkingAnimation flip duration={25} />
+        <CatWalkingAnimation duration={10} />
+        <CatWalkingAnimation flip duration={15} />
+        <CatWalkingAnimation duration={30} startX={-200} />
+        <CatWalkingAnimation flip duration={30} startX={-50} />
+        <CatWalkingAnimation flip duration={10} startX={-200} />
+        <CatWalkingAnimation duration={30} startX={-50} />
+      </div>
     </div>
   );
 };

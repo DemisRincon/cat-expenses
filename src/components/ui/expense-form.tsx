@@ -1,4 +1,5 @@
 import React, { useState, type FormEvent, type ChangeEvent } from "react";
+import InputLabel from "./input-label";
 
 export interface ExpenseFormData {
   item: string;
@@ -25,6 +26,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     }
   );
 
+  const [formErrors, setFormErrors] = useState<Partial<ExpenseFormData>>({});
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void => {
@@ -33,12 +36,39 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
       ...prev,
       [name]: value,
     }));
+    setFormErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const validateForm = (): boolean => {
+    const errors: Partial<ExpenseFormData> = {};
+
+    if (!formData.item.trim()) {
+      errors.item = "Item is required.";
+    }
+
+    if (!formData.category) {
+      errors.category = "Category is required.";
+    }
+
+    if (
+      !formData.amount ||
+      isNaN(Number(formData.amount)) ||
+      Number(formData.amount) <= 0
+    ) {
+      errors.amount = "Amount must be a positive number.";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    if (!formData.item || !formData.category || !formData.amount) {
+    if (!validateForm()) {
       return;
     }
 
@@ -51,10 +81,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="flex-1">
-      <div className="mb-4">
-        <label htmlFor="item" className="block mb-2">
-          Item:
-        </label>
+      <InputLabel htmlFor="item" label="Item" error={formErrors.item}>
         <input
           type="text"
           id="item"
@@ -64,12 +91,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-3 py-2"
         />
-      </div>
+      </InputLabel>
 
-      <div className="mb-4">
-        <label htmlFor="category" className="block mb-2">
-          Category:
-        </label>
+      <InputLabel
+        htmlFor="category"
+        label="Category"
+        error={formErrors.category}
+      >
         <select
           id="category"
           name="category"
@@ -82,12 +110,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           <option value="Furniture">Furniture</option>
           <option value="Accessory">Accessory</option>
         </select>
-      </div>
+      </InputLabel>
 
-      <div className="mb-4">
-        <label htmlFor="amount" className="block mb-2">
-          Amount:
-        </label>
+      <InputLabel htmlFor="amount" label="Amount" error={formErrors.amount}>
         <input
           type="number"
           id="amount"
@@ -97,7 +122,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
           onChange={handleChange}
           className="w-full border border-gray-300 rounded px-3 py-2"
         />
-      </div>
+      </InputLabel>
 
       <div className="flex justify-end mt-6">
         <button

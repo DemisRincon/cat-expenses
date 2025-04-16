@@ -16,7 +16,7 @@ const ExpenseTable: React.FC<ExpenseTableProps> = ({
   expenses,
   onToggleSelection,
 }) => (
-  <div className="border border-gray-300 rounded">
+  <div className="border border-gray-300 rounded bg-white">
     <table className="w-full border-collapse">
       <thead>
         <tr className="border-b border-gray-300">
