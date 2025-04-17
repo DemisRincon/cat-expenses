@@ -1,15 +1,10 @@
 import React from "react";
 import noexpenses from "../../assets/noexpenses.webp";
-export interface ExpenseItem {
-  id: string;
-  item: string;
-  category: string;
-  amount: number;
-  selected: boolean;
-}
 import { AnimatePresence, motion } from "framer-motion";
+import { Expense } from "../../redux/expenseSlice";
+
 export interface ExpenseTableProps {
-  expenses: ExpenseItem[];
+  expenses: Expense[];
   onToggleSelection: (id: string) => void;
 }
 
@@ -56,7 +51,9 @@ const ExpenseTable: React.FC<ExpenseTableProps> = ({
                 exit={{ opacity: 0, x: 400 }}
                 transition={{ duration: 0.3, ease: "linear" }}
                 key={expense.id}
-                className={`${expense.selected ? "bg-blue-50" : ""} ${
+                className={`${
+                  expense.isMostExpensiveCategory ? "bg-blue-50" : ""
+                } ${
                   expense.id !== expenses[expenses.length - 1].id
                     ? "border-b border-gray-300"
                     : ""

@@ -3,33 +3,36 @@ import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ExpenseTable, {
   ExpenseTableProps,
-  ExpenseItem,
 } from "../../src/components/ui/expenses-table";
+import { Expense } from "../../src/redux/expenseSlice";
 
 describe("ExpenseTable", () => {
   const mockOnToggleSelection = jest.fn();
 
-  const expenses: ExpenseItem[] = [
+  const expenses: Expense[] = [
     {
       id: "1",
-      item: "Laptop",
-      category: "Electronics",
-      amount: 1200,
+      item: "Cat Food",
+      category: "Food",
+      amount: 50,
       selected: false,
+      isMostExpensiveCategory: true,
     },
     {
       id: "2",
-      item: "Chair",
-      category: "Furniture",
-      amount: 150,
+      item: "Litter Box",
+      category: "Supplies",
+      amount: 30,
       selected: true,
+      isMostExpensiveCategory: false,
     },
     {
       id: "3",
-      item: "Notebook",
-      category: "Stationery",
-      amount: 5,
+      item: "Cat Toy",
+      category: "Toys",
+      amount: 10,
       selected: false,
+      isMostExpensiveCategory: false,
     },
   ];
 
@@ -45,17 +48,17 @@ describe("ExpenseTable", () => {
   it("renders the table with correct data", () => {
     const { getByText } = render(<ExpenseTable {...defaultProps} />);
 
-    expect(getByText("Laptop")).toBeInTheDocument();
-    expect(getByText("Electronics")).toBeInTheDocument();
-    expect(getByText("$1200")).toBeInTheDocument();
+    expect(getByText("Cat Food")).toBeInTheDocument();
+    expect(getByText("Food")).toBeInTheDocument();
+    expect(getByText("$50")).toBeInTheDocument();
 
-    expect(getByText("Chair")).toBeInTheDocument();
-    expect(getByText("Furniture")).toBeInTheDocument();
-    expect(getByText("$150")).toBeInTheDocument();
+    expect(getByText("Litter Box")).toBeInTheDocument();
+    expect(getByText("Supplies")).toBeInTheDocument();
+    expect(getByText("$30")).toBeInTheDocument();
 
-    expect(getByText("Notebook")).toBeInTheDocument();
-    expect(getByText("Stationery")).toBeInTheDocument();
-    expect(getByText("$5")).toBeInTheDocument();
+    expect(getByText("Cat Toy")).toBeInTheDocument();
+    expect(getByText("Toys")).toBeInTheDocument();
+    expect(getByText("$10")).toBeInTheDocument();
   });
 
   it("renders checkboxes with correct selection state", () => {
@@ -81,10 +84,10 @@ describe("ExpenseTable", () => {
   it("applies correct styles for selected rows", () => {
     const { getByText } = render(<ExpenseTable {...defaultProps} />);
 
-    const selectedRow = getByText("Chair").closest("tr");
+    const selectedRow = getByText("Cat Food").closest("tr");
     expect(selectedRow).toHaveClass("bg-blue-50");
 
-    const unselectedRow = getByText("Laptop").closest("tr");
+    const unselectedRow = getByText("Litter Box").closest("tr");
     expect(unselectedRow).not.toHaveClass("bg-blue-50");
   });
 });

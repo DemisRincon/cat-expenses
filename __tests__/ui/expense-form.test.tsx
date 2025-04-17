@@ -32,16 +32,16 @@ describe("ExpenseForm", () => {
 
   it("renders the form with initial data when provided", () => {
     const initialData = {
-      item: "Laptop",
-      category: "Accessory",
+      item: "Cat Food",
+      category: "Food",
       amount: "1200",
     };
     const { getByLabelText } = render(
       <ExpenseForm {...defaultProps} initialData={initialData} />
     );
 
-    expect(getByLabelText("Item:")).toHaveValue("Laptop");
-    expect(getByLabelText("Category:")).toHaveValue("Accessory");
+    expect(getByLabelText("Item:")).toHaveValue("Cat Food");
+    expect(getByLabelText("Category:")).toHaveValue("Food");
     expect(getByLabelText("Amount:")).toHaveValue(1200);
   });
 
@@ -50,7 +50,7 @@ describe("ExpenseForm", () => {
       <ExpenseForm {...defaultProps} />
     );
 
-    fireEvent.change(getByLabelText("Item:"), { target: { value: "Chair" } });
+    fireEvent.change(getByLabelText("Item:"), { target: { value: "Bed" } });
     fireEvent.change(getByLabelText("Category:"), {
       target: { value: "Furniture" },
     });
@@ -59,7 +59,7 @@ describe("ExpenseForm", () => {
     fireEvent.click(getByText("Submit"));
 
     expect(mockOnSubmit).toHaveBeenCalledWith({
-      item: "Chair",
+      item: "Bed",
       category: "Furniture",
       amount: 150,
     });
